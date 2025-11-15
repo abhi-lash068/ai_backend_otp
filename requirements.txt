@@ -1,10 +1,6 @@
 flask
-flask-cors
-pandas
-datasets
-torch
-transformers
-scikit-learn
-joblib
-numpy
 gunicorn
+joblib
+scikit-learn
+numpy
+pandas
