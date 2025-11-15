@@ -1,13 +1,19 @@
-FROM python:3.10-slim
+FROM python:3.10
 
+# Set working directory
 WORKDIR /app
 
+# Copy requirements
 COPY requirements.txt .
-RUN pip install -r requirements.txt
 
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the code
 COPY . .
 
-# Hugging Face requires port 7860
-EXPOSE 7860
+# Expose port (Cloud Run uses 8080)
+ENV PORT=8080
 
-CMD ["gunicorn", "-b", "0.0.0.0:7860", "app:app"]
+# Run with gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]
